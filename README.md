@@ -8,3 +8,6 @@ The process ends (exists it's infinite loop) once someone has been "caught" watc
 
 ## Requirements
 A working Netflix Account, UIPath Studio, UIPath Robot, access to a UIPath Orchestrator Instance with valid Netflix Credentials, for email and text message support access to a Gmail account with credentials and email forwarding support turned on, Microsoft Excel
+
+## Documentation
+The documentation is found in the root directory of the project:  https://github.com/robertba/UIPathRoboDad/blob/master/UIPathRoboDad_docs.pdf
