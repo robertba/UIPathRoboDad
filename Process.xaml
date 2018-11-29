@@ -1,0 +1,261 @@
+﻿<Activity mc:Ignorable="sap sap2010 sads" x:Class="ProcessTransaction"
+ xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities"
+ xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+ xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities"
+ xmlns:sads="http://schemas.microsoft.com/netfx/2010/xaml/activities/debugger"
+ xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation"
+ xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation"
+ xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib"
+ xmlns:sco="clr-namespace:System.Collections.ObjectModel;assembly=mscorlib"
+ xmlns:ss="clr-namespace:System.Security;assembly=mscorlib"
+ xmlns:ui="http://schemas.uipath.com/workflow/activities"
+ xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_TransactionItem" Type="InArgument(x:String)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap2010:WorkflowViewState.IdRef>ProcessTransaction_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <sco:Collection x:TypeArguments="x:String">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Security</x:String>
+    </sco:Collection>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <sco:Collection x:TypeArguments="AssemblyReference">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualStudio.Services.Common</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR</AssemblyReference>
+      <AssemblyReference>UiPath.Python</AssemblyReference>
+      <AssemblyReference>UiPath.Cryptography</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.Java.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.Mail</AssemblyReference>
+      <AssemblyReference>UiPath.Word</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+    </sco:Collection>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Description: In this file all other process specific files will be invoked. If an application exception occurs, the current transaction can be retried. If a BRE is thrown, the transaction will be skipped. Can be a flowchart or sequence. " DisplayName="ProcessTransaction" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke LoginAndDownloadHistory workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="Netflix\LoginAndDownloadHistory.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Credential">[in_Config("NetflixCred").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_Profile">[in_Config("NetflixProfile").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_InputPath">[in_Config("DownloadPath").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_FileName">[in_Config("NetflixDownloadFilename").ToString]</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke GetBaselineHistory workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="Netflix\GetBaselineHistory.xaml">
+      <ui:InvokeWorkflowFile.Arguments>
+        <InArgument x:TypeArguments="x:String" x:Key="in_InputPath">[in_Config("DownloadPath").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_DownloadedFileName">[in_Config("NetflixDownloadFilename").ToString]</InArgument>
+        <InArgument x:TypeArguments="x:String" x:Key="in_ViewingHistoryPath">Netflix\ViewingHistoryComparison.xlsx</InArgument>
+      </ui:InvokeWorkflowFile.Arguments>
+    </ui:InvokeWorkflowFile>
+    <DoWhile DisplayName="Do while" sap2010:WorkflowViewState.IdRef="DoWhile_1">
+      <DoWhile.Variables>
+        <Variable x:TypeArguments="x:Boolean" Name="bComparisonResult" />
+        <Variable x:TypeArguments="x:String" Name="gmailUser" />
+      </DoWhile.Variables>
+      <DoWhile.Condition>[bComparisonResult = True]</DoWhile.Condition>
+      <Sequence sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence.Variables>
+          <Variable x:TypeArguments="ss:SecureString" Name="gmailPass" />
+        </Sequence.Variables>
+        <Delay Duration="[new Timespan(0,0,0, Int32.Parse(in_Config(&quot;Check Rate&quot;).ToString))]" sap2010:WorkflowViewState.IdRef="Delay_2" />
+        <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke CompareViewingHistory workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="Netflix\CompareViewingHistory.xaml">
+          <ui:InvokeWorkflowFile.Arguments>
+            <InArgument x:TypeArguments="x:String" x:Key="in_InputPath">[in_Config("DownloadPath").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FileName">[in_Config("NetflixDownloadFilename").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_FileComparePath">Netflix\ViewingHistoryComparison.xlsx</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_CurrentFileComparePath">Netflix\Current.xlsx</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_NetflixCredential">[in_Config("NetflixCred").ToString]</InArgument>
+            <InArgument x:TypeArguments="x:String" x:Key="in_NetflixProfile">[in_Config("NetflixProfile").ToString]</InArgument>
+            <OutArgument x:TypeArguments="x:Boolean" x:Key="out_Result">[bComparisonResult]</OutArgument>
+          </ui:InvokeWorkflowFile.Arguments>
+        </ui:InvokeWorkflowFile>
+        <If Condition="[bComparisonResult = False]" sap2010:WorkflowViewState.IdRef="If_2">
+          <If.Then>
+            <Sequence sap2010:WorkflowViewState.IdRef="Sequence_6">
+              <If Condition="[in_Config(&quot;Alert Email&quot;).ToString.ToLower.Equals(&quot;true&quot;)]" sap2010:WorkflowViewState.IdRef="If_1">
+                <If.Then>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_4">
+                    <Sequence sap2010:WorkflowViewState.IdRef="Sequence_3">
+                      <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_Config(&quot;GmailSMTPCred&quot;).ToString]" DisplayName="Get Credential" sap2010:WorkflowViewState.IdRef="GetRobotCredential_1" Password="[gmailPass]" Username="[gmailUser]" />
+                      <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendEmail workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_4" UnSafe="False" WorkflowFileName="Common\SendEmail.xaml">
+                        <ui:InvokeWorkflowFile.Arguments>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_Email">[in_Config("Alert Email Body").ToString]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_SendTo">[in_Config("Alert Email To").ToString]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_SendFrom">[gmailUser]</InArgument>
+                          <InArgument x:TypeArguments="x:String" x:Key="in_Subject">[in_Config("Alert Email Subject").ToString]</InArgument>
+                          <InArgument x:TypeArguments="ss:SecureString" x:Key="in_SMTPPassword">[gmailPass]</InArgument>
+                        </ui:InvokeWorkflowFile.Arguments>
+                      </ui:InvokeWorkflowFile>
+                    </Sequence>
+                  </Sequence>
+                </If.Then>
+              </If>
+              <If Condition="[in_Config(&quot;Alert Text&quot;).ToString.ToLower.Equals(&quot;true&quot;)]" sap2010:WorkflowViewState.IdRef="If_4">
+                <If.Then>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_8">
+                    <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_Config(&quot;GmailSMTPCred&quot;).ToString]" DisplayName="Get Credential" sap2010:WorkflowViewState.IdRef="GetRobotCredential_3" Password="[gmailPass]" Username="[gmailUser]" />
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke SendEmail for txt message workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_6" UnSafe="False" WorkflowFileName="Common\SendEmail.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Email">[in_Config("Alert Text Content").ToString]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_SendTo">[in_Config("Alert Text Phone").ToString]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_SendFrom">[gmailUser]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Subject">
+                          <Literal x:TypeArguments="x:String" Value="" />
+                        </InArgument>
+                        <InArgument x:TypeArguments="ss:SecureString" x:Key="in_SMTPPassword">[gmailPass]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                  </Sequence>
+                </If.Then>
+              </If>
+              <If Condition="[in_Config(&quot;Alert Text To Speech&quot;).ToString.ToLower.Equals(&quot;true&quot;)]" sap2010:WorkflowViewState.IdRef="If_3">
+                <If.Then>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_7">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke TextToSpeech workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_7" UnSafe="False" WorkflowFileName="Common\TextToSpeech.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Text">[in_Config("Alert Text To Speech Content").ToString]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                  </Sequence>
+                </If.Then>
+              </If>
+              <If Condition="[in_Config(&quot;Alert Google Home&quot;).ToString.ToLower.Equals(&quot;true&quot;)]" sap2010:WorkflowViewState.IdRef="If_5">
+                <If.Then>
+                  <Sequence sap2010:WorkflowViewState.IdRef="Sequence_9">
+                    <ui:InvokeWorkflowFile ContinueOnError="{x:Null}" DisplayName="Invoke Google Home workflow" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_8" UnSafe="False" WorkflowFileName="Common\GoogleHome.xaml">
+                      <ui:InvokeWorkflowFile.Arguments>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_Text">[in_Config("Google Home Device").ToString]</InArgument>
+                        <InArgument x:TypeArguments="x:String" x:Key="in_TextToSay">[in_Config("Alert Text To Speech Content").ToString]</InArgument>
+                      </ui:InvokeWorkflowFile.Arguments>
+                    </ui:InvokeWorkflowFile>
+                  </Sequence>
+                </If.Then>
+              </If>
+            </Sequence>
+          </If.Then>
+        </If>
+      </Sequence>
+    </DoWhile>
+    <sads:DebugSymbol.Symbol>dz1DOlxVc2Vyc1xSb2JlcnQgQmFwdGlzdFxEb2N1bWVudHNcVWlQYXRoXFJvYm9EYWRcUHJvY2Vzcy54YW1sR0wDtgEOAgEBTQVUHQIBYVUFWx0CAVpcBbQBDwIBAlFFUWkCAWlPRk9pAgFnUkRScwIBZU3EAU3qAQIBZFBDUGkCAWJZTllzAgFgV0VXaQIBXlW/AVXgAQIBXVhOWH0CAVthGmE0AgFYYgezARICAQNmCWaWAQIBVmcJcSECAUhyCbIBDgIBBGYZZmkCAVdvSW9cAgFUaUlpbQIBUm5ObnQCAVBtUW10AgFOakhqdwIBTGfGAWfqAQIBS2tPa3QCAUpsVmxqAgFJchdyNAIBBXQNsAEYAgEHdQ+GARQCATCHAQ+YARQCARqZAQ+jARQCARKkAQ+vARQCAQh1HXVtAgExdxOEAR4CATOHAR2HAWwCARuJAROWAR4CAR2ZAR2ZAXYCARObAROhAR4CARWkAR2kAXMCAQmmAROtAR4CAQt4FYMBIAIBNIoBFYoBgQICASmLARWVAS0CAR6cARWgAS0CARanARWsAS0CAQx5F3mDAgIBQXoXggEvAgE1igFLigF8AgEuigHxAYoB/gECASyKAdoBigHnAQIBKo0BUY0BewIBJ44BUo4BegIBJY8BVI8BXwIBI5MBX5MBagIBIZEBG5EBSgIBIIsB1gGLAe0BAgEfngFQngGEAQIBGJwByQGcAeMBAgEXqgFVqgGJAQIBEKkBUKkBegIBDqcByAGnAeABAgENeU15fgIBRnnzAXmAAgIBRHncAXnpAQIBQnxTfHsCAT99VH16AgE9flZ+YQIBO4ABYYABbAIBOX9Vf4ABAgE3esgBet8BAgE2</sads:DebugSymbol.Symbol>
+  </Sequence>
+  <sap2010:WorkflowViewState.ViewStateManager>
+    <sap2010:ViewStateManager>
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_1" sap:VirtualizedContainerService.HintSize="677.142857142857,86.2857142857143" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_2" sap:VirtualizedContainerService.HintSize="677.142857142857,86.2857142857143" />
+      <sap2010:ViewStateData Id="Delay_2" sap:VirtualizedContainerService.HintSize="629.142857142857,21.7142857142857" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_3" sap:VirtualizedContainerService.HintSize="629.142857142857,86.2857142857143" />
+      <sap2010:ViewStateData Id="GetRobotCredential_1" sap:VirtualizedContainerService.HintSize="313.714285714286,21.7142857142857" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_4" sap:VirtualizedContainerService.HintSize="313.714285714286,86.2857142857143" />
+      <sap2010:ViewStateData Id="Sequence_3" sap:VirtualizedContainerService.HintSize="335.428571428571,271.428571428571">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="Sequence_4" sap:VirtualizedContainerService.HintSize="357.142857142857,394.857142857143">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_1" sap:VirtualizedContainerService.HintSize="482.285714285714,548.571428571429" />
+      <sap2010:ViewStateData Id="GetRobotCredential_3" sap:VirtualizedContainerService.HintSize="313.714285714286,21.7142857142857" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_6" sap:VirtualizedContainerService.HintSize="313.714285714286,86.2857142857143" />
+      <sap2010:ViewStateData Id="Sequence_8" sap:VirtualizedContainerService.HintSize="335.428571428571,271.428571428571">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_4" sap:VirtualizedContainerService.HintSize="482.285714285714,425.142857142857" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_7" sap:VirtualizedContainerService.HintSize="313.714285714286,86.2857142857143" />
+      <sap2010:ViewStateData Id="Sequence_7" sap:VirtualizedContainerService.HintSize="335.428571428571,209.714285714286">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_3" sap:VirtualizedContainerService.HintSize="482.285714285714,363.428571428571" />
+      <sap2010:ViewStateData Id="InvokeWorkflowFile_8" sap:VirtualizedContainerService.HintSize="313.714285714286,86.2857142857143" />
+      <sap2010:ViewStateData Id="Sequence_9" sap:VirtualizedContainerService.HintSize="335.428571428571,209.714285714286">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_5" sap:VirtualizedContainerService.HintSize="482.285714285714,363.428571428571" />
+      <sap2010:ViewStateData Id="Sequence_6" sap:VirtualizedContainerService.HintSize="504,1944">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="If_2" sap:VirtualizedContainerService.HintSize="629.142857142857,2097.71428571429" />
+      <sap2010:ViewStateData Id="Sequence_2" sap:VirtualizedContainerService.HintSize="650.857142857143,2409.14285714286">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="DoWhile_1" sap:VirtualizedContainerService.HintSize="677.142857142857,2577.71428571429" />
+      <sap2010:ViewStateData Id="Sequence_1" sap:VirtualizedContainerService.HintSize="698.857142857143,3000">
+        <sap:WorkflowViewStateService.ViewState>
+          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+            <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+          </scg:Dictionary>
+        </sap:WorkflowViewStateService.ViewState>
+      </sap2010:ViewStateData>
+      <sap2010:ViewStateData Id="ProcessTransaction_1" sap:VirtualizedContainerService.HintSize="738.857142857143,3080" />
+    </sap2010:ViewStateManager>
+  </sap2010:WorkflowViewState.ViewStateManager>
+</Activity>

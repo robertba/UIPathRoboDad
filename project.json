@@ -1,0 +1,28 @@
+{
+  "name": "RoboDad",
+  "description": "RoboDad Project",
+  "main": "Main.xaml",
+  "dependencies": {
+    "UiPath.Excel.Activities": "[2.4.6884.25683]",
+    "UiPath.Mail.Activities": "[1.2.6863.29868]",
+    "UiPath.System.Activities": "[18.3.6897.22524]",
+    "UiPath.UIAutomation.Activities": "[18.3.6897.22543]",
+    "UiPath.WebAPI.Activities": "[1.2.6863.33980]",
+    "UiPath.Credentials.Activities": "[1.1.6479.13204]"
+  },
+  "schemaVersion": "3.2",
+  "studioVersion": "18.2",
+  "projectVersion": "1.0.6801.23637",
+  "runtimeOptions": {
+    "autoDispose": false,
+    "excludedLoggedData": [
+      "Private:*",
+      "*password*"
+    ]
+  },
+  "projectType": "Workflow",
+  "libraryOptions": {
+    "includeOriginalXaml": false,
+    "privateWorkflows": []
+  }
+}
