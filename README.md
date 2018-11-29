@@ -1,0 +1,2 @@
+# UIPathRoboDad
+In your household, you can monitor Netflix consumption in near real-time and learn if kids are "sneak watching" without you knowing.  The alerts are configurable and customizable.  This process requires a working Netflix account with a profile. It requires the Chrome browser and unless the email process is changed, a valid Gmail account that is set with mail forwarding functionality enabled. It requires a connection to Orchestrator which contains stored credentials.
